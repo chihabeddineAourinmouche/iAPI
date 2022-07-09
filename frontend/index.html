@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDEX</title>
+</head>
+<body>
+
+    <script type="text/javascript" src="/eel.js"></script>
+    <script>
+
+        let get_id_card_by_country_name = async () => {
+            let country_name = "C1";
+
+            let id_card = await eel.get_id_card_by_country_name(country_name)();
+
+            let id_card_ul = document.createElement("ul");
+
+            for (let property in id_card) {
+                let id_card_property_li = document.createElement("li");
+                id_card_property_li.innerHTML = id_card[property];
+                id_card_ul.appendChild(id_card_property_li);
+            }
+
+            document.body.appendChild(id_card_ul);
+        };
+
+        let get_id_card_image_data_by_country_name = async () => {
+            let country_name = "C2";
+
+            let response_obj = await eel.get_id_card_image_data_by_country_name(country_name)();
+
+            let binary_data = response_obj["img_binary_data"];
+            let alt = response_obj["img_alt"];
+
+            let img = document.createElement("img");
+            img.src = 'data:image/jpg;base64,' + binary_data;
+            img.alt = alt;
+            
+            document.body.appendChild(img);
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            get_id_card_image_data_by_country_name();
+        });
+
+    </script>
+    
+</body>
+</html>
